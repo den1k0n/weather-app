@@ -1,0 +1,68 @@
+@import url(card.css);
+:root {
+    --body-bg: linear-gradient(to left, black, rgb(36, 33, 33));
+
+    user-select: none;
+}
+
+/* reset CSS */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+#container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    gap: 40px;
+}
+
+#citySearch {
+    display: flex;
+    align-items: center;
+
+    gap: 20px;
+    margin-top: 100px;
+}
+
+#cityInput {
+    height: 40px;
+    width: 200px;
+
+    font-size: 1.125em;
+
+    padding: 10px;
+
+    /* background-color: transparent; */
+    /* color: white; */
+    border: 1px solid white;
+}
+
+#cityInput:focus {
+    outline: none;
+}
+
+#searchBtn {
+    height: 40px;
+    width: 70px;
+
+    border-radius: .75em;
+}
+
+.temperature-container {
+    display: flex;
+    justify-content: center;
+}
+.temperature {
+    font-size: 80px;
+}
