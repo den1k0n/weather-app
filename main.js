@@ -77,12 +77,11 @@ const fetching = () => {
     .then(response => response.json())
     .then(result => showData(result))
     .catch(err => console.log(err));
-
-
     container.style.display = 'none';
     document.querySelector('.preloader').style.display = 'initial';
     startPreloader();
 }
+
 searchBtn.addEventListener('click', fetching);
 window.addEventListener('keydown', (ev) => {
     if(ev.key === 'Enter') fetching();
