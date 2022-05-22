@@ -63,7 +63,7 @@ body {
     width: 1.5rem;
     height: 1.5rem;
     position: absolute;
-    right: max(calc(20% + .35rem), calc(50% - 200px + .35rem));
+    right: max(calc(20% + .55rem), calc(50% - 200px + .55rem));
 
     background-image: url('../search.svg');
     background-repeat: no-repeat;
