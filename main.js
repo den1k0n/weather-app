@@ -1,5 +1,7 @@
 const startPreloader = () => {
-    window.setTimeout(() => {document.querySelector('.preloader').style.display = 'none';}, 2000);
+    window.setTimeout(() => {
+        document.querySelector('.preloader').style.display = 'none';
+    }, 2000);
 }
 // You didn't see anything
 const
@@ -16,36 +18,41 @@ const createUrl = (apiKey, city = 'undefined', lat = 'undefined', lon = 'undefin
 }
 
 // CACHE DOM
-const container = document.getElementById('container');
-const cityOutput = document.getElementById('searchInput');
-const cityName = document.getElementById('cityName');
-const currentTemperature = document.getElementById('currentTemperature');
-const description = document.getElementById('description');
+const
+    container = document.getElementById('container'),
+    cityOutput = document.getElementById('searchInput'),
+    cityName = document.getElementById('cityName'),
+    currentTemperature = document.getElementById('currentTemperature'),
+    description = document.getElementById('description'),
 
-const hourlyForecast = document.getElementById('hourlyForecast');
-const dailyForecast = document.getElementById('dailyForecast');
-const errorContainer = document.querySelector('.error-container');
+    hourlyForecast = document.getElementById('hourlyForecast'),
+    dailyForecast = document.getElementById('dailyForecast'),
+    errorContainer = document.querySelector('.error-container');
+
 const showData = data => {
-    if(data.cod % 100 == 4 || data.cod % 100 == 5) {
-        window.setTimeout( () => {
-            errorContainer.style.display = 'initial';
-            errorContainer.textContent = data.message; 
-        }, 2000);
-        return;
-    }
-    window.setTimeout( () => {container.style.display = 'flex'; errorContainer.style.display = 'none';},2000);
+
+    window.setTimeout( () => {
+        if(data.cod % 100 == 4 || data.cod % 100 == 5) {
+            window.setTimeout( () => {
+                errorContainer.style.display = 'initial';
+                errorContainer.textContent = data.message; 
+            }, 2000);
+            return;
+        } else {
+            container.style.display = 'flex'; errorContainer.style.display = 'none';
+        }
+    }, 2000)
+
     cityName.textContent = data.name;
     currentTemperature.textContent = Math.round(data.main.temp);
     description.textContent = data.weather[0].description;
 
-    let lat = data.coord.lat;
-    let lon = data.coord.lon;
+    let lat = data.coord.lat,
+        lon = data.coord.lon;
+    
     fetch(createUrl(testApiKey, 'undefined', lat, lon))
     .then(response => response.json())
     .then(result => {
-        console.log(result);
-        console.log(hourlyForecast.children[0]);
-
         // Hourly forecast
         let currentTime = new Date().getHours();
         for(let i = 0; i < 24; i++) {
@@ -73,7 +80,6 @@ const showData = data => {
                 dailyForecast.children[i].children[0].style.textDecoration = 'underline';
                 dailyForecast.children[i].children[0].textContent = 'Today';
             }
-
             dailyForecast.children[i].children[1].setAttribute('src', `icons/${result.daily[i].weather[0].icon}.svg`);
             dailyForecast.children[i].children[2].textContent = Math.round(result.daily[i].temp.eve) + '°';
         }
@@ -82,8 +88,7 @@ const showData = data => {
 }
 
 const fetching = () => {
-    let city = cityOutput.value;
-    fetch(createUrl(defaultApiKey, city))
+    fetch(createUrl(defaultApiKey, cityOutput.value))
     .then(response => response.json())
     .then(result => showData(result))
     .catch(err => console.error(err));
