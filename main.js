@@ -1,31 +1,12 @@
 const startPreloader = () => {
-    window.setTimeout(() => {document.querySelector('.preloader').style.display = 'none'; document.querySelector('.container').style.display = 'initial'}, 2000);
+    window.setTimeout(() => {document.querySelector('.preloader').style.display = 'none'; document.querySelector('#container').style.display = 'flex'}, 2000);
 }
-
-// window.onload = startPreloader;
 // You didn't see anything
 const
     defaultApiKey = '0c5e131ca9786828236c6fd421583751',
     testApiKey = '8423e60a5000bca50b7e3468a8cae03b';
-
-// CACHE DOM
-const
-    container = document.querySelector('.container');
-    input = container.querySelector('input'),
-    searchBtn = document.getElementById('search'),
-    currentTemp = document.getElementById('currentTemp'),
-    feelsLike = document.getElementById('feelsLike'),
-    cityName = document.getElementById('cityName'),
-    desc = document.getElementById('description');
-
-let
-    lat,
-    lon,
-    cityOutput;
-
 // API URL for city call
 // https://api.openweathermap.org/data/2.5/weather?q={city name}&appid={API key}
-
 // API URL for lat/lon call
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
@@ -34,51 +15,74 @@ const createUrl = (apiKey, city = 'undefined', lat = 'undefined', lon = 'undefin
     return `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
 }
 
-// const showData = data => {
-//     console.log(data);
-//     cityName.textContent = cityOutput;
-//     currentTemp.textContent = data.current.temp + ' °C';
-//     feelsLike.textContent = data.current.feels_like + ' °C';
-// }
+// CACHE DOM
+const container = document.getElementById('container');
+const cityOutput = document.getElementById('searchInput');
+const cityName = document.getElementById('cityName');
+const currentTemperature = document.getElementById('currentTemperature');
+const description = document.getElementById('description');
+
+const hourlyForecast = document.getElementById('hourlyForecast');
+const dailyForecast = document.getElementById('dailyForecast');
 
 const showData = data => {
     console.log(data);
     cityName.textContent = data.name;
-    desc.textContent = data.weather[0].description;
-    currentTemp.textContent = data.main.temp + ' °C';
-    feelsLike.textContent = data.main.feels_like + ' °C';
-}
+    currentTemperature.textContent = Math.round(data.main.temp);
+    description.textContent = data.weather[0].description;
 
-const secondFetch = res => {
-    cityOutput = res.name;
-    console.log(res);
-    lat = res.coord.lat;
-    lon = res.coord.lon;
+    let lat = data.coord.lat;
+    let lon = data.coord.lon;
     fetch(createUrl(testApiKey, 'undefined', lat, lon))
     .then(response => response.json())
-    .then(result => showData(result))
+    .then(result => {
+        console.log(result);
+        console.log(hourlyForecast.children[0]);
+
+        // Hourly forecast
+        let currentTime = new Date().getHours();
+        for(let i = 0; i < 24; i++) {
+            // I have no intentions to make it right
+            // don't like the code - don't read it
+            let temp = currentTime;
+            if( (currentTime + i) >= 48 ) temp -= 24;
+            else if( (currentTime + i) >= 24) temp -= 24;
+            let newTime = (temp + i) % 12;
+            if(newTime === 0) newTime = 12;
+            if( Math.floor((currentTime + i) / 12) % 2 === 1 ) hourlyForecast.children[i].children[0].textContent = newTime + 'pm';
+            else hourlyForecast.children[i].children[0].textContent = newTime + 'am';
+            if(i === 0) hourlyForecast.children[i].children[0].textContent = 'Now';
+            // ugh..
+            hourlyForecast.children[i].children[1].setAttribute('src', `icons/${result.hourly[i].weather[0].icon}.svg`);
+            hourlyForecast.children[i].children[2].textContent = Math.floor(result.hourly[i].temp) + '°';
+        }
+
+        // Daily forecast
+        const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        currentTime = new Date().getDay();
+        for(let i  = 0; i < 8; i++) {
+            dailyForecast.children[i].children[0].textContent = days[(currentTime + i) % 7];
+            if(i === 0) {
+                dailyForecast.children[i].children[0].style.textDecoration = 'underline';
+                dailyForecast.children[i].children[0].textContent = 'Today';
+            }
+
+            dailyForecast.children[i].children[1].setAttribute('src', `icons/${result.daily[i].weather[0].icon}.svg`);
+            dailyForecast.children[i].children[2].textContent = Math.round(result.daily[i].temp.eve) + '°';
+        }
+    })
     .catch(err => console.log(err));
 }
 
-// const fetching = () => {
-//     city = input.value;
-//     fetch(createUrl(defaultApiKey, city))
-//     .then(response => response.json())
-//     .then(result => secondFetch(result))
-//     .catch(err => console.log(err));
-//     container.style.display = 'none';
-//     document.querySelector('.preloader').style.display = 'initial';
-//     startPreloader();
-// }
-
 const fetching = () => {
-    city = input.value;
+    let city = cityOutput.value;
     fetch(createUrl(defaultApiKey, city))
     .then(response => response.json())
     .then(result => showData(result))
     .catch(err => console.log(err));
+
     container.style.display = 'none';
-    document.querySelector('.preloader').style.display = 'initial';
+    document.querySelector('.preloader').style.display = "initial";
     startPreloader();
 }
 

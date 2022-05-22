@@ -10,16 +10,184 @@
 </head>
 <body>
 
-  <div class="container">
+  <div id="container" class="flex">
 
-    <input type="text" placeholder="city name">
-    <div id="search">Search</div>
+    <div class="form flex">
+      <input type="text" id="searchInput" autocomplete="off" placeholder="City Name"/>
+      <span id="searchBtn"></span>
+    </div>
 
-    <h2>City: <span id="cityName"></span></h1>
-    <h2>Desc: <span id="description"></span></h2>
-    <h2>Temp: <span id="currentTemp"></span></h2>
-    <h2>Feel: <span id="feelsLike"></span></h2>
-  
+    <h1 id="cityName" class="flex">Frankfurt</h1>
+
+    <h1 id="currentTemperature" class="flex">22</h1>
+
+    <p id="description" class="flex">Mostly Sunny</p>
+
+    <ul id="hourlyForecast">
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/02d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/02n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/03d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/03n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/04d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/04n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/09d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/09n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/10d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/10n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/11d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/11n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/13d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/13n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/50d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/50n.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+      <li class="hourly-card">
+        <div class="time">12pm</div>
+        <img src="icons/01d.svg" alt="weather icon" class="weather-desc">
+        <div class="hourly-temp">13*</div>
+      </li>
+    </ul>
+
+    <ul id="dailyForecast" class="flex">
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+      <li class="daily-card flex">
+        <div class="day">Monday</div>
+        <img src="icons/09d.svg" alt="weather icon" class="daily-weather-icon">
+        <div class="daily-temp">13°</div>
+      </li>
+    </ul>
 
   </div>
 

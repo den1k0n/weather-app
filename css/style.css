@@ -1,13 +1,16 @@
 @import url('prealoder.css');
 
-* {
+*,
+*::after,
+*::before {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    font-family: 'Courier New', Courier, monospace;
 }
 
 body {
-    font-family: 'Courier New', Courier, monospace;
 
     display: flex;
     justify-content: center;
@@ -16,73 +19,144 @@ body {
     background-color: black;
 
     color: white;
-    height: 100vh;
 
     background-repeat: no-repeat;
     background-size: cover;
 
     overscroll-behavior: none;
 }
-
-.container {
-    width: 350px;
-}
-
-input {
-    width: 200px;
-    height: 40px;
-
-    padding: 5px;
-
-    border-radius: 5px;
-    border: 0;
-
-    font-family:'Courier New', Courier, monospace;
-    font-size: 20px;
-    font-weight: 600;
-}
-
-#search {
-    height: 40px;
-    width: 100px;
-
-    border-radius: 10px;
-    margin: 0px; float: right;
-
-    outline: none;
-    border: 0;
-
-    font-family:'Courier New', Courier, monospace;
-    font-size: 20px;
-    font-weight: 600;
-
-    color: white;
-    background-color: rgb(160, 156, 156);
-
+.flex {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#container {
+    width: 100%;
+    gap: var(--gap, .75rem);
+    flex-direction: column;
+
+    padding: 5px;
+}
+
+.form {
+    margin-top: 1rem;
+    width: min(60%, 400px);
+}
+
+#searchInput {
+    height: 3rem;
+    width: 100%;
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    padding: 3%;
+    border: none;
+    border-radius: .75rem;
+    outline: none;
+}
+
+#searchBtn {
+    display: inline-block;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    right: max(calc(20% + .35rem), calc(50% - 200px + .35rem));
+
+    background-image: url('../search.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 
     cursor: pointer;
 }
 
-#search:hover {
-    background-color: rgb(54, 150, 129);
+#currentTemperature {
+    font-size: 4rem;
 }
 
-.text {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 16px;
-    font-weight: 700;
-
-    color: white;
+#currentTemperature::after {
+    position: absolute;
+    right: calc(50% - 4.5rem);
+    content: '°';
 }
 
-h2 {
-    display: flex;
-    justify-content: space-between;
+#description {
+    text-transform: capitalize;
+}
+#hourlyForecast { 
+    border: 1px solid #333;
+    background-color: transparent;
+    overflow: auto; 
+    white-space: nowrap; 
+    width: min(100%, 700px); 
+    min-height: 0; 
+
+    padding: .25rem;
+    padding-bottom: .5rem;
+
+    /* border-radius: 1rem; */
+
+    scroll-behavior: smooth;
+
+    scrollbar-track-color: transparent;
 }
 
-span {
-    color: rgb(183, 237, 238)
+#hourlyForecast .hourly-card {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    gap: var(--gap, .3rem);
+
+    width: 16%;
+
+    height: fit-content;
+}
+
+.hourly-card .weather-desc {
+    height: 2rem;
+    width: 2rem;
+
+    margin: .5rem;
+}
+
+#dailyForecast {
+    flex-direction: column;
+    width: min(100%, 700px);
+
+    border: 1px solid #333;
+}
+
+#dailyForecast .daily-card {
+    width: 100%;
+    justify-content: space-between !important;
+    padding: 0.3rem;
+}
+
+.daily-card .daily-weather-icon {
+    height: 3.75rem;
+    width: 3.75rem;
+}
+
+.daily-card {
+    border-bottom: 1px solid #333;
+}
+
+.daily-card div {
+    width: 33%;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.daily-card div.daily-temp {
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+.daily-card img {
+    width: 33%;
 }
