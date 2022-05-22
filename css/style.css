@@ -73,6 +73,42 @@ body {
     cursor: pointer;
 }
 
+#units {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    position: absolute;
+
+    background-color: black;
+    color: white;
+    font-weight: 800;
+    border: .5px solid white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    cursor: pointer;
+    right: max(calc(20% - 2.5rem), calc(50% - 200px - 2.5rem));
+
+    border-radius: 50%;
+}
+
+#units::before {
+    content: '°';
+
+    position: absolute;
+
+    left: 7%;
+}
+
+#units:hover {
+    background-color: white;
+    color: black;
+    border: gray;
+}
+
 #currentTemperature {
     font-size: 4rem;
 }

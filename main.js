@@ -12,13 +12,15 @@ const
 // API URL for lat/lon call
 // https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude={part}&appid={API key}
 
-const createUrl = (apiKey, city = 'undefined', lat = 'undefined', lon = 'undefined') => {
-    if(city !== 'undefined') return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-    return `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
+const createUrl = (apiKey, city = 'undefined', lat = 'undefined', lon = 'undefined', units) => {
+    if(city !== 'undefined') return `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${units}`;
+    return `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}`;
 }
 
 // CACHE DOM
 const
+    searchBtn = document.getElementById('searchBtn'),
+    units = document.getElementById('units'),
     container = document.getElementById('container'),
     cityOutput = document.getElementById('searchInput'),
     cityName = document.getElementById('cityName'),
@@ -28,6 +30,8 @@ const
     hourlyForecast = document.getElementById('hourlyForecast'),
     dailyForecast = document.getElementById('dailyForecast'),
     errorContainer = document.querySelector('.error-container');
+
+let measurement_units = 'metric';
 
 const showData = data => {
 
@@ -50,7 +54,7 @@ const showData = data => {
     let lat = data.coord.lat,
         lon = data.coord.lon;
     
-    fetch(createUrl(testApiKey, 'undefined', lat, lon))
+    fetch(createUrl(testApiKey, 'undefined', lat, lon, measurement_units))
     .then(response => response.json())
     .then(result => {
         // Hourly forecast
@@ -88,7 +92,7 @@ const showData = data => {
 }
 
 const fetching = () => {
-    fetch(createUrl(defaultApiKey, cityOutput.value))
+    fetch(createUrl(defaultApiKey, cityOutput.value, 'undefined', 'undefined', measurement_units))
     .then(response => response.json())
     .then(result => showData(result))
     .catch(err => console.error(err));
@@ -98,6 +102,15 @@ const fetching = () => {
     startPreloader();
 }
 
+units.addEventListener('click', () => {
+    if(units.textContent === 'C') {
+        units.textContent = 'F';
+        measurement_units = 'imperial'
+    } else {
+        units.textContent = 'C';
+        measurement_units = 'metric'
+    }
+})
 searchBtn.addEventListener('click', fetching);
 window.addEventListener('keydown', (ev) => {
     if(ev.key === 'Enter') fetching();
