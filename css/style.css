@@ -32,6 +32,7 @@ body {
 }
 
 #container {
+    display: none;
     width: 100%;
     gap: var(--gap, .75rem);
     flex-direction: column;
@@ -159,4 +160,15 @@ body {
 
 .daily-card img {
     width: 33%;
+}
+
+.error-container {
+    font-size: 2rem;
+    color: red;
+    font-weight: 600;
+}
+
+.text {
+    font-size: 1rem;
+    color: white;
 }

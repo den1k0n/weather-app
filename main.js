@@ -1,5 +1,5 @@
 const startPreloader = () => {
-    window.setTimeout(() => {document.querySelector('.preloader').style.display = 'none'; document.querySelector('#container').style.display = 'flex'}, 2000);
+    window.setTimeout(() => {document.querySelector('.preloader').style.display = 'none';}, 2000);
 }
 // You didn't see anything
 const
@@ -24,9 +24,16 @@ const description = document.getElementById('description');
 
 const hourlyForecast = document.getElementById('hourlyForecast');
 const dailyForecast = document.getElementById('dailyForecast');
-
+const errorContainer = document.querySelector('.error-container');
 const showData = data => {
-    console.log(data);
+    if(data.cod % 100 == 4 || data.cod % 100 == 5) {
+        window.setTimeout( () => {
+            errorContainer.style.display = 'initial';
+            errorContainer.textContent = data.message; 
+        }, 2000);
+        return;
+    }
+    window.setTimeout( () => {container.style.display = 'flex'; errorContainer.style.display = 'none';},2000);
     cityName.textContent = data.name;
     currentTemperature.textContent = Math.round(data.main.temp);
     description.textContent = data.weather[0].description;
@@ -71,7 +78,7 @@ const showData = data => {
             dailyForecast.children[i].children[2].textContent = Math.round(result.daily[i].temp.eve) + '°';
         }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 }
 
 const fetching = () => {
@@ -79,7 +86,7 @@ const fetching = () => {
     fetch(createUrl(defaultApiKey, city))
     .then(response => response.json())
     .then(result => showData(result))
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
 
     container.style.display = 'none';
     document.querySelector('.preloader').style.display = "initial";
